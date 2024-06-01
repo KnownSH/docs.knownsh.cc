@@ -1,0 +1,4 @@
+site_name: KnownSH Docs
+site_url: https://docs.knownsh.cc/
+theme:
+  name: material
