@@ -1,38 +1,34 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-
 import tailwind from "@astrojs/tailwind";
 import starlightImageZoom from 'starlight-image-zoom';
+import vercel from '@astrojs/vercel/serverless';
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [starlight({
     plugins: [starlightImageZoom()],
-    title: 'docs.KnownSH',
+    title: 'DocSH',
     social: {},
-    logo: {
-      src: './src/assets/icon.png'
+    customCss: ['./src/styles/custom.css', './src/styles/tailwind.css'],
+    expressiveCode: {
+      styleOverrides: { 
+        borderRadius: '0.5rem',
+      },
+      themes: ['dark-plus', 'github-light']
     },
-    customCss: [
-		'./src/styles/custom.css',
-		'./src/styles/tailwind.css'
-	],
     sidebar: [{
       label: 'Guides',
       items: [
       // Each item here is one entry in the navigation menu.
       {
-        label: 'Example Guide',
-        link: '/guides/example/'
+        label: 'FiguraSVC 1.1.0',
+        link: '/guides/figurasvc/'
       }]
-    }, {
-      label: 'Reference',
-      autogenerate: {
-        directory: 'reference'
-      }
     }]
-  }), 
-  tailwind({
-	applyBaseStyles: false,
-  })]
+  }), tailwind({
+    applyBaseStyles: false
+  })],
+  output: "server",
+  adapter: vercel()
 });
