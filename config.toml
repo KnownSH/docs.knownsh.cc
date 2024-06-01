@@ -1,9 +1,0 @@
-base_url = "https://docs.knownsh.cc"
-
-compile_sass = true
-build_search_index = true
-
-[markdown]
-highlight_code = true
-
-[extra]
