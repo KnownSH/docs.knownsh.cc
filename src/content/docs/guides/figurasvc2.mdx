@@ -1,0 +1,14 @@
+---
+title: Starwave Demo
+description: Version 1
+---
+import { Code } from 'astro-expressive-code/components'
+import Tag from '/src/components/Tag.astro'
+import ModCard from '/src/components/ModCard.astro'
+import LuaFunction from '/src/components/LuaFunction.astro'
+export const highlights = ['svc.microphone'];
+
+> <ModCard id="sodium"/>
+
+#### dispatch <Tag label="Serverside" color="#10ac84"/><Tag label="Yields" color="rgb(241, 196, 15)"/> 
+<LuaFunction className="DataService" call="func" name="dispatch"/>

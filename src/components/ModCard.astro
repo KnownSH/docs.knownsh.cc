@@ -1,0 +1,80 @@
+---
+export interface Props {
+  id: string
+}
+
+interface MemberJSON {
+    role: string,
+    user: {
+        username: string
+    }
+}
+
+const { id } = Astro.props;
+
+async function fetchModrinthProjectData(id: string) {
+    const [projectResponse, membersResponse] = await Promise.all([ // me thanking roblox promise/a+ for having this function so i know it exists
+        fetch(`https://api.modrinth.com/v2/project/${id}`),
+        fetch(`https://api.modrinth.com/v2/project/${id}/members`)
+    ]);
+
+    const [projectData, membersData] = [await projectResponse.json(), await membersResponse.json()];
+    return { projectData, membersData };
+}
+
+function calculateDaysSince(date: string): number {
+  const updatedDate = new Date(date);
+  const currentDate = new Date();
+  const timeDiff = currentDate.getTime() - updatedDate.getTime();
+  return Math.floor(timeDiff / (1000 * 3600 * 24));
+}
+
+function findOwner(members: MemberJSON[]): string | undefined {
+  return members.find(member => member.role === 'Owner')?.user.username;
+}
+
+const { projectData, membersData } = await fetchModrinthProjectData(id);
+
+const formattedDownloads = projectData.downloads.toLocaleString();
+const formattedFollowers = projectData.followers.toLocaleString();
+const imageSrc = projectData.icon_url;
+const name = projectData.title;
+const author = findOwner(membersData);
+const description = projectData.description;
+const isClient = projectData.client_side === 'required';
+const isServer = projectData.server_side === 'required';
+const updatedDays = calculateDaysSince(projectData.updated);
+---
+
+<style>
+    .nopad {
+        margin-top: 0px !important;
+    }
+</style>
+
+<div class="bg-[#1d1d1d] text-white p-4 flex items-center nopad">
+  <img class="w-16 h-16 mr-6" src={imageSrc} alt={name} />
+  <div class="nopad">
+    <h2 class="text-xl font-bold">
+      {name}
+      <span class="text-gray-400 text-sm">by {author}</span>
+    </h2>
+    <p class="text-gray-300 nopad">{description}</p>
+    <div class="flex items-center mt-2">
+      <span class="mr-4">⬇ {formattedDownloads} downloads</span>
+      <span>❤️ {formattedFollowers} followers</span>
+    </div>
+    <div class="flex items-center mt-2">
+      {(isServer && isClient) && (
+        <span class="mr-2 bg-transparent outline text-black px-2 py-1 rounded-md">Client or Server</span>
+      )}
+      {isServer && !isClient && (
+        <span class="mr-2 bg-transparent outline text-black px-2 py-1 rounded-md">Server</span>
+      )}
+      {!isServer && isClient && (
+        <span class="mr-2 bg-transparent outline text-black px-2 py-1 rounded-md">Client</span>
+      )}
+      <span class="text-gray-400 ml-auto">Updated {updatedDays} days ago</span>
+    </div>
+  </div>
+</div>

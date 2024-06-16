@@ -1,0 +1,22 @@
+---
+interface Props {
+    className: string,
+    functionType: string,
+    name: string,
+    params: Array<String>
+}
+
+const { className, name, functionType, params } = Astro.props;
+---
+
+<div class="lua-function">
+    {name !== "__iter" ? (
+        <>
+            <code>
+              {className}
+              {name !== "__call" ? (functionType === "static" ? "." : ":") : ""}
+            </code>
+            {name !== "__call" && <code class="lua-green">{name}</code>}
+        </>
+    ) : (0)}
+</div>

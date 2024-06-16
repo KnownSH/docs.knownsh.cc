@@ -1,0 +1,40 @@
+---
+const colors = [
+  "#dc0073",
+  "#ff5252",
+  "#ff793f",
+  "#2b8ab6",
+  "#00a1e4",
+  "#218c74",
+  "#79b473",
+  "#70cc00",
+  "#925FB9",
+]
+
+const getTagColor = (text: string) => {
+  let sum = 0
+
+  for (let i = 0; i < text.length; i++) {
+    sum += text.charCodeAt(i)
+  }
+
+  return colors[sum % colors.length]
+}
+
+const { label, color } = Astro.props;
+---
+
+<style>
+    .docTag {
+        border-width: 1.5px;
+        margin: .2rem;
+        padding: .2rem .5rem;
+        border-radius: .5rem;
+    }
+</style>
+
+<>
+    <span class="docTag" style={{borderColor: color || getTagColor(label), color: color || getTagColor(label)}}>
+        {label}
+    </span>
+</>
