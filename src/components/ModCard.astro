@@ -52,29 +52,30 @@ const updatedDays = calculateDaysSince(projectData.updated);
     }
 </style>
 
-<div class="bg-[#1d1d1d] text-white p-4 flex items-center nopad">
-  <img class="w-16 h-16 mr-6" src={imageSrc} alt={name} />
+<div class="bg-[#131313] text-white p-4 flex items-center rounded-lg">
+  <img class="w-32 h-32 mr-6" src={imageSrc} alt={name} />
   <div class="nopad">
     <h2 class="text-xl font-bold">
       {name}
       <span class="text-gray-400 text-sm">by {author}</span>
     </h2>
-    <p class="text-gray-300 nopad">{description}</p>
-    <div class="flex items-center mt-2">
+    <p class="text-gray-300 text-wrap nopad italic">{description}</p>
+    <div class="flex items-center mt-2 nopad">
       <span class="mr-4">⬇ {formattedDownloads} downloads</span>
       <span>❤️ {formattedFollowers} followers</span>
     </div>
     <div class="flex items-center mt-2">
-      {(isServer && isClient) && (
-        <span class="mr-2 bg-transparent outline text-black px-2 py-1 rounded-md">Client or Server</span>
-      )}
-      {isServer && !isClient && (
-        <span class="mr-2 bg-transparent outline text-black px-2 py-1 rounded-md">Server</span>
-      )}
-      {!isServer && isClient && (
-        <span class="mr-2 bg-transparent outline text-black px-2 py-1 rounded-md">Client</span>
-      )}
-      <span class="text-gray-400 ml-auto">Updated {updatedDays} days ago</span>
+        <a href=`https://modrinth.com/mod/${id}` class="mr-2 text-black px-2 py-1 rounded-md underline-offset-4">Download Mod</a>
+        {(isServer && isClient) && (
+            <span class="mr-2 bg-white text-black px-2 py-1 rounded-md">Client or Server</span>
+        )}
+        {isServer && !isClient && (
+            <span class="mr-2 bg-white text-black px-2 py-1 rounded-md">Server</span>
+        )}
+        {!isServer && isClient && (
+            <span class="mr-2 bg-white text-black px-2 py-1 rounded-md">Client</span>
+        )}
+        <span class="text-gray-400 ml-auto">Updated {updatedDays} days ago</span>
     </div>
   </div>
 </div>

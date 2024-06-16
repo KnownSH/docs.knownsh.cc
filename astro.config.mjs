@@ -24,9 +24,6 @@ export default defineConfig({
       items: [
       // Each item here is one entry in the navigation menu.
       {
-        label: '2.0',
-        link: '/guides/figurasvc2/'
-      }, {
         label: '1.1',
         link: '/guides/figurasvc/'
       }, {

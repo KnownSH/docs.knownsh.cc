@@ -4,11 +4,14 @@ description: Version 1.20.1 - 1.20.4
 ---
 import { Code } from 'astro-expressive-code/components'
 import { Aside } from '@astrojs/starlight/components';
+import ModCard from '/src/components/ModCard.astro'
 import luaExample1 from '/src/assets/lua/figurasvc-example-1.lua?raw'
 export const highlights = ['svc.microphone'];
 
 A simple unofficial addon for [Figura](https://modrinth.com/mod/figura) that allows Simple Voice Chat to be detected by Figura Lua scripts. \
 **This works without any serverside code or mods.**
+
+<ModCard id='figurasvc'/>
 
 ## The Basics
 This mod is built to be **as simple as possible**, the mod introduces only one new event to Figura, which you can declare in your Lua script like so:
